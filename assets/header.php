@@ -17,16 +17,6 @@
                 </li>
             </ul>
         </div>
-        <div class="column is-one-third-widescreen">
-            <ul class="user">
-                <li>
-                    <img src="https://img.icons8.com/material-sharp/24/000000/user.png">
-                </li>
-                <li>
-                    <a href="#">s'identifier</a>
-                </li>
-            </ul>
-        </div>
     </div>
 </div>
 <nav class="navbar navbar-center has-background-grey-lighter">
