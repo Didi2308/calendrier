@@ -1,0 +1,34 @@
+html {
+    font: Verdana;
+    background: linear-gradient(to left,#c20016, #254f9a);
+}
+
+.degrade {
+    padding: 100px 0;
+    display: flex;
+    justify-content: center;
+    margin-top: -100px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.box {
+    background-color: white;
+    width: 1200px;
+    height: 600px;
+    margin: 100px 160px;
+}
+
+.title {
+    padding-top: 10px;
+    font-weight: bold!important;
+}
+
+#message {
+    background-color: transparent;
+}
+
+h1 {
+    font-weight: bold!important;
+    font-size: 40px!important;
+}

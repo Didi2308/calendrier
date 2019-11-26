@@ -1,0 +1,45 @@
+html{
+    background: transparent;
+}
+
+body {
+    font: Verdana;
+    background: linear-gradient(to left,#c20016, #254f9a);
+}
+
+.degrade {
+    padding: 30px 0;
+}
+
+.fond {
+    width: 100%;
+}
+
+img.case{
+   width: 100%;
+   cursor: pointer;
+}
+
+.intern {
+    width: 250px;
+    height: 250px;
+    margin: 50px;
+    position: relative;
+}
+
+.perenoel {
+    position: absolute;
+    left: 0;
+    top: -105px;
+    cursor: pointer;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 30px 0;
+}
+
+
