@@ -48,4 +48,4 @@ if(!$dejaexistant->fetch() && ($date > $date_inscription)) {
 
 }
 
-header('Location: ../pages/index.php');
+header('Location: ../index.php');

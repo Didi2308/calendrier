@@ -19,9 +19,9 @@ if($row = $resultat->fetch()) {
         $_SESSION['id'] = $row['ID_UTIL'];
         $_SESSION['pseudo'] = $row['PSEUDO'];
         $_SESSION['mdp'] = $row['MDP'];
-        header('Location: ../pages/index.php');
+        header('Location: ../index.php');
     } else {
-        header('Location: ../pages/index.php');
+        header('Location: ..index.php');
     }
 }
 

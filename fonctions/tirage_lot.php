@@ -1,5 +1,4 @@
-<?php
-session_start();
+    <?php
 require_once "connexionBDD.php";
 
 //Récupération du jour au clic sur la case (récupération en GET)
@@ -65,9 +64,6 @@ function tirage_lot($pdo, $jour, $user){
     if (!($fetch)) {
         $tab = lots_restants(crea_tab_lots($pdo), lots_deja_obtenu($pdo, $user));
         $index = rand(0, count($tab) - 1);
-        var_dump($user);
-        var_dump($tab[$index]);
-        var_dump($jour);
         $sql = $pdo->prepare('INSERT INTO  t_historique(id_util, id_lot, date_obtention) 
             VALUES ( :util, :lot, :date_obt)');
         $sql->execute([
@@ -101,30 +97,41 @@ function tirage_lot($pdo, $jour, $user){
 }
 
 function tirage_gros_lot($pdo){
-    $tab = [];
-    $utils = $pdo->query("SELECT id_util FROM t_utilisateur");
-    while($res = ($utils -> fetch())){
-        $tab[] = $res['id_util'];
-    }
-    $parrain = $pdo->query("SELECT parrain_id FROM est_filleul");
-    while($res = ($parrain -> fetch())){
-        $tab[] = $res['id_util'];
-    }
+    $sql = $pdo->query("SELECT id_util FROM t_utilisateur where TAS='1'");
+    $gagnant = $sql->fetch();
+    if(!$gagnant){
+        $tab = [];
+        $utils = $pdo->query("SELECT id_util FROM t_utilisateur");
+        while($res = ($utils -> fetch())){
+            $tab[] = $res['id_util'];
+        }
+        $parrain = $pdo->query("SELECT parrain_id FROM est_filleul");
+        while($res = ($parrain -> fetch())){
+            $tab[] = $res['parrain_id'];
+        }
 
-    $nb_random = rand(0, $tab.length);
-    return $tab[$nb_random];
+        $nb_random = rand(0, count($tab));
+        $pdo->exec("UPDATE t_utilisateur SET TAS ='1' WHERE ID_util = '".$tab[$nb_random]."'");
+    } else {
+        return $gagnant;
+    }
 }
 
-function test_date($d1){
+
+// Renvoi :
+//  -  -1 si d1 est avant d2
+//  -  0  si d1 == d2
+//  -  1  si d2 est avant d1
+function test_date($d1, $d2){
     $date = strtotime($d1);
-    $date_inscription = strtotime(date('d-m-Y'));
+    $date2 = strtotime($d2);
 
     $dfr1 = strftime('%A %d %B %Y', $date);
-    $dfr2 = strftime('%A %d %B %Y', $date_inscription);
+    $dfr2 = strftime('%A %d %B %Y', $date2);
 
-    if($date < $date_inscription){
+    if($date < $date2){
         return -1;
-    }elseif($date == $date_inscription){
+    }elseif($date == $date2){
         return 0;
     }else{
         return 1;
@@ -132,29 +139,8 @@ function test_date($d1){
 }
 
 
-
-if(isset($_GET['date'])){
-    if(isset($_SESSION['id'])){
-        $admin = $pdo->query("SELECT role FROM `t_utilisateur` WHERE id_util ='" . $_SESSION['id'] ."'");
-        $est_admin = $admin->fetch();
-        if($est_admin == 1){
-            $date = isset($_GET["date"]) ? $_GET["date"] : $jour;
-        } else {
-            $date = date("Y-m-d");
-            echo $date;
-        }
-        // ----- A revoir  : Test du mois et du jour compris entre 1 et 24
-        $user = $_SESSION['id'];
-
-        //$lots_obtenus = lots_deja_obtenu($pdo,$user);
-        //$lots = crea_tab_lots($pdo);
-        //$tab = lots_restants($lots, $lots_obtenus);
-        tirage_lot($pdo, $date, $user);
-    }
-}
+    tirage_gros_lot($pdo);
 
 ?>
-
-<a href="../pages/index.php"> Retour Index</a>
 
 

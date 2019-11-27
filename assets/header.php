@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <div class="columns">
     <div class="column"></div>
     <div class="column logo-center">
@@ -23,7 +25,14 @@
                     <img src="https://img.icons8.com/material-sharp/24/000000/user.png">
                 </li>
                 <li>
-                    <a href="#">s'identifier</a>
+                    <?php
+                    if (isset($_SESSION['id'])){
+                    ?>
+                    <a href="fonctions/deconnexion.php"> <?php echo $_SESSION['pseudo'] ?></a>
+                    <?php }else { ?>
+                    <a href="pages/test_connexion.php">s'identifier</a>
+
+                    <?php }?>
                 </li>
             </ul>
         </div>
@@ -33,6 +42,10 @@
     <a class="navbar-item" href="apropos.php">A propos </a>
     <p class="navbar-item">|</p>
     <a class="navbar-item" href="cgu.php">CGU</a>
+    <p class="navbar-item">|</p>
+    <a class="navbar-item" href="page-resultat?jour=25">GROS LOT</a>
+    <p class="navbar-item">|</p>
+    <a class="navbar-item" href="pages/inscription.php">Inscription</a>
     <p class="navbar-item">|</p>
     <a class="navbar-item" href="contact.php">Contact</a>
 </nav>
