@@ -42,10 +42,14 @@
     <a class="navbar-item" href="apropos.php">A propos </a>
     <p class="navbar-item">|</p>
     <a class="navbar-item" href="cgu.php">CGU</a>
+    <?php if(isset($_SESSION['id'])){ ?>
     <p class="navbar-item">|</p>
     <a class="navbar-item" href="page-resultat?jour=25">GROS LOT</a>
+    <?php } ?>
+    <?php if(!(isset($_SESSION['id']))){ ?>
     <p class="navbar-item">|</p>
     <a class="navbar-item" href="pages/inscription.php">Inscription</a>
+    <?php }?>
     <p class="navbar-item">|</p>
     <a class="navbar-item" href="contact.php">Contact</a>
 </nav>
